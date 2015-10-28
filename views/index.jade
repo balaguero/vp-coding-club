@@ -12,9 +12,9 @@ block body
             th Purchase
             th Sold
         tbody
-          tr(ng-repeat="gem in store.gems")
+          tr(ng-repeat="gem in store.gems | orderBy:'-name'" class="product")
             td {{gem.name}}
             td {{gem.price | currency}}
             td
-              button(ng-show="gem.canPurchase" ng-click="store.purchaseGem($index)" class="btn") Add to cart
+              button(ng-show="gem.canPurchase" ng-click="store.purchaseGem(gem.name)" class="btn") Add to cart
             td {{gem.sold}}

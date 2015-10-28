@@ -9,7 +9,11 @@ angular.module("gemStore", [])
 			{name: 'Bloodstone', price: 2.95, canPurchase: true, sold: 0}
 		];
 
-		that.purchaseGem = function(index){
-			that.gems[index].sold ++;
+		that.purchaseGem = function(name){
+			angular.forEach(that.gems, function(gem, key) {
+				if(gem.name === name){
+					gem.sold ++;
+				}
+			});
 		};
 	});
