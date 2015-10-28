@@ -10,6 +10,7 @@ block body
             th Name
             th Price
             th Purchase
+            th Refund
             th Sold
         tbody
           tr(ng-repeat="gem in store.gems | orderBy:'-name'" class="product")
@@ -17,4 +18,6 @@ block body
             td {{gem.price | currency}}
             td
               button(ng-show="gem.canPurchase" ng-click="store.purchaseGem(gem.name)" class="btn") Add to cart
+            th
+              button(ng-show="gem.sold > 0" ng-click="store.refundGem(gem.name)" class="btn") Refund
             td {{gem.sold}}

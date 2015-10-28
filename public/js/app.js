@@ -16,4 +16,12 @@ angular.module("gemStore", [])
 				}
 			});
 		};
+
+		that.refundGem = function(name){
+			angular.forEach(that.gems, function(gem, key) {
+				if(gem.name === name){
+					gem.sold --;
+				}
+			});
+		}
 	});
