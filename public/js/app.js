@@ -4,6 +4,8 @@
 		.controller("StoreController", ['$scope', function($scope){
 			var that = this;
 
+            that.logo = "img/angularjs-logo.png";
+
 			that.gems = [
 				{name: 'Azurite', price: 2.95, canPurchase: true, sold: 0, soldOut: false},
 				{name: 'Amarillite', price: 3.95, canPurchase: true, sold: 0, soldOut: false},
