@@ -3,7 +3,7 @@ extends layout
 block body
   section(ng-controller='StoreController as store' )
     div(class="container")
-      h2 {{"Hello Angular"}}
+      h2(ng-bind="'Hello Angular'")
       table(class="table")
         thead
           tr
@@ -14,10 +14,10 @@ block body
             th Sold
         tbody
           tr(ng-repeat="gem in store.gems | orderBy:'-name'" class="product" ng-show="!gem.soldOut")
-            td {{gem.name}}
-            td {{gem.price | currency}}
+            td(ng-bind="gem.name")
+            td(ng-bind="gem.price | currency")
             td
               button(ng-show="gem.canPurchase" ng-click="store.purchaseGem(gem)" class="btn") Add to cart
             th
               button(ng-show="gem.sold > 0" ng-click="store.refundGem(gem)" class="btn") Refund
-            td {{gem.sold}}
+            td(ng-bind="gem.sold")
