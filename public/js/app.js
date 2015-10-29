@@ -3,25 +3,17 @@ angular.module("gemStore", [])
 		var that = this;
 
 		that.gems = [
-			{name: 'Azurite', price: 2.95, canPurchase: true, sold: 0},
-			{name: 'Amarillite', price: 3.95, canPurchase: true, sold: 0},
-			{name: 'Zafire', price: 6.95, canPurchase: false, sold: 0},
-			{name: 'Bloodstone', price: 2.95, canPurchase: true, sold: 0}
+			{name: 'Azurite', price: 2.95, canPurchase: true, sold: 0, soldOut: false},
+			{name: 'Amarillite', price: 3.95, canPurchase: true, sold: 0, soldOut: false},
+			{name: 'Zafire', price: 6.95, canPurchase: false, sold: 0, soldOut: false},
+			{name: 'Bloodstone', price: 2.95, canPurchase: true, sold: 0, soldOut: true}
 		];
 
-		that.purchaseGem = function(name){
-			angular.forEach(that.gems, function(gem, key) {
-				if(gem.name === name){
-					gem.sold ++;
-				}
-			});
+		that.purchaseGem = function(gem){
+			gem.sold ++;
 		};
 
-		that.refundGem = function(name){
-			angular.forEach(that.gems, function(gem, key) {
-				if(gem.name === name){
-					gem.sold --;
-				}
-			});
+		that.refundGem = function(gem){
+			gem.sold --;
 		}
 	});

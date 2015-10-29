@@ -13,11 +13,11 @@ block body
             th Refund
             th Sold
         tbody
-          tr(ng-repeat="gem in store.gems | orderBy:'-name'" class="product")
+          tr(ng-repeat="gem in store.gems | orderBy:'-name'" class="product" ng-show="!gem.soldOut")
             td {{gem.name}}
             td {{gem.price | currency}}
             td
-              button(ng-show="gem.canPurchase" ng-click="store.purchaseGem(gem.name)" class="btn") Add to cart
+              button(ng-show="gem.canPurchase" ng-click="store.purchaseGem(gem)" class="btn") Add to cart
             th
-              button(ng-show="gem.sold > 0" ng-click="store.refundGem(gem.name)" class="btn") Refund
+              button(ng-show="gem.sold > 0" ng-click="store.refundGem(gem)" class="btn") Refund
             td {{gem.sold}}
