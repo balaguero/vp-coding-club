@@ -1,4 +1,5 @@
-angular.module("gemStore", [])
+(function(){
+	angular.module("gemStore", [])
 	.controller("StoreController", function($scope){
 		var that = this;
 
@@ -17,3 +18,4 @@ angular.module("gemStore", [])
 			gem.sold --;
 		}
 	});
+})();
