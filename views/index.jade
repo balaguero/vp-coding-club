@@ -3,7 +3,7 @@ extends layout
 block body
   section(ng-controller='StoreController as store' )
     div(class="container")
-      h2(ng-bind="'Hello Angular' | caseFilter: 'upper'" class="pull-left")
+      h2(ng-bind="'Hello Angular' | case: 'upper'" class="pull-left")
       a(ng-href="{{store.link}}" target="_blank" class="pull-left")
         img(ng-src="{{store.logo}}")
       table(class="table")
