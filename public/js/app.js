@@ -21,5 +21,11 @@
 			that.refundGem = function(gem){
 				gem.sold --;
 			};
-		}]);
+		}])
+        .filter('caseFilter', function(){
+            return function(input, caseType) {
+                if (caseType.toLowerCase() === "upper") return input.toUpperCase();
+                if (caseType.toLowerCase() === "upper") return input.toLowerCase();
+              };
+        })
 })();

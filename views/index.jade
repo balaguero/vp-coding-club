@@ -3,8 +3,8 @@ extends layout
 block body
   section(ng-controller='StoreController as store' )
     div(class="container")
-      h2(ng-bind="'Hello Angular'")
-      a(ng-href="{{store.link}}" target="_blank")
+      h2(ng-bind="'Hello Angular' | caseFilter: 'upper'" class="pull-left")
+      a(ng-href="{{store.link}}" target="_blank" class="pull-left")
         img(ng-src="{{store.logo}}")
       table(class="table")
         thead
@@ -14,9 +14,10 @@ block body
             th Purchase
             th Refund
             th Sold
+
         tbody
           tr(ng-repeat="gem in store.gems | orderBy:'-name'" class="product" ng-show="!gem.soldOut")
-            td(ng-bind="gem.name")
+            td(ng-bind="gem.name" ng-class="{red: !gem.canPurchase, blue: gem.canPurchase}")
             td(ng-bind="gem.price | currency")
             td
               button(ng-show="gem.canPurchase" ng-click="store.purchaseGem(gem)" class="btn") Add to cart
