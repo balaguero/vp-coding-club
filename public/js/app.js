@@ -5,6 +5,7 @@
 			var that = this;
 
             that.logo = "img/angularjs-logo.png";
+            that.link = "https://angularjs.org/";
 
 			that.gems = [
 				{name: 'Azurite', price: 2.95, canPurchase: true, sold: 0, soldOut: false},

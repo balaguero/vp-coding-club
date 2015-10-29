@@ -4,7 +4,8 @@ block body
   section(ng-controller='StoreController as store' )
     div(class="container")
       h2(ng-bind="'Hello Angular'")
-      img(ng-src="{{store.logo}}")
+      a(ng-href="{{store.link}}" target="_blank")
+        img(ng-src="{{store.logo}}")
       table(class="table")
         thead
           tr
