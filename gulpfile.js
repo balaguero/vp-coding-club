@@ -31,7 +31,7 @@ gulp.task('concatAppJS',function(){
 
 gulp.task('minifyAppJS', ['concatAppJS'], function(){
   gulp.src(publicPath + 'js/app.js')
-  //./pipe(uglify())
+  .pipe(uglify())
   .pipe(rename({
       extname: '.min.js'
   }))
@@ -59,7 +59,7 @@ gulp.task('concatVendorJS',function(){
 
 gulp.task('minifyVendorJS', ['concatVendorJS'], function(){
   gulp.src(publicPath + 'js/vendor.js')
-  .pipe(uglify())
+  //.pipe(uglify())
   .pipe(rename({
       extname: '.min.js'
   }))

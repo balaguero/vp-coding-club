@@ -8,14 +8,37 @@ block body
         h2(ng-bind="'Hello Angular' | case: 'upper'" class="pull-left")
         a(ng-href="{{store.link}}" target="_blank" class="pull-left")
 
-      div(class="row" ng-repeat="gem in store.gems | orderBy:'-name'" class="product" ng-show="!gem.soldOut")
-        div(class="pull-left")
+      div(class="row" ng-repeat="gem in store.gems | orderBy:'name'" class="product" ng-show="!gem.soldOut")
+        div(class="col-md-9")
           h3(ng-bind="gem.name" ng-class="{red: !gem.canPurchase, blue: gem.canPurchase}")
           h4(ng-bind="gem.price | currency")
-        div(class="pull-right")
+        div(class="col-md-3")
           h4(ng-bind="'Sold gems: ' + gem.sold")
           div
-            button(ng-show="gem.canPurchase" ng-click="store.purchaseGem(gem)" class="btn") Add to cart
-          div
-            button(ng-show="gem.sold > 0" ng-click="store.refundGem(gem)" class="btn") Refund
-        img(ng-src="{{store.logo}}")
+            button(ng-show="gem.canPurchase" ng-click="store.purchaseGem(gem)" class="btn pull-left") Add to cart
+            button(ng-show="gem.sold > 0" ng-click="store.refundGem(gem)" class="btn pull-left") Refund
+
+        div(class="gallery col-md-12" ng-if="gem.images.length" ng-controller="GalleryController as gallery")
+          img(ng-src="{{gem.images[gallery.current]}}" class="center-block img-rounded")
+          br
+          ul(class="list-unstyled")
+            li(ng-repeat="image in gem.images" class="pull-left")
+              img(ng-src="{{gem.images[$index]}}" ng-click="gallery.setCurrent($index)" class="img-thumbnail")
+
+        div(class="tab" ng-controller="TabController as tab")
+          ul(class="nav nav-pills")
+            li(ng-class="{ active: tab.isSet(1) }")
+              a(ng-click="tab.setTab(1)") Description
+            li(ng-class="{ active: tab.isSet(2) }")
+              a(ng-click="tab.setTab(2)") Specs
+            li(ng-class="{ active: tab.isSet(3) }")
+              a(ng-click="tab.setTab(3)") Reviews 
+          div(ng-show="tab.isSet(1)")
+            h4 Description
+            blockquote(ng-bind="gem.description")
+          div(ng-show="tab.isSet(2)")
+            h4 Specs
+            blockquote(ng-bind="gem.shine")
+          div(ng-show="tab.isSet(3)")
+            h4 Reviews
+            blockquote
