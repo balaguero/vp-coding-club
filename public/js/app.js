@@ -1,5 +1,5 @@
 (function(){
-	angular.module("gemStore", []) a
+	angular.module("gemStore", [])
 })();
 
 (function(){
