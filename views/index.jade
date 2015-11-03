@@ -3,24 +3,19 @@ extends layout
 block body
   section(ng-controller='StoreController as store' )
     div(class="container")
-      h2(ng-bind="'Hello Angular' | case: 'upper'" class="pull-left")
-      a(ng-href="{{store.link}}" target="_blank" class="pull-left")
-        img(ng-src="{{store.logo}}")
-      table(class="table")
-        thead
-          tr
-            th Name
-            th Price
-            th Purchase
-            th Refund
-            th Sold
 
-        tbody
-          tr(ng-repeat="gem in store.gems | orderBy:'-name'" class="product" ng-show="!gem.soldOut")
-            td(ng-bind="gem.name" ng-class="{red: !gem.canPurchase, blue: gem.canPurchase}")
-            td(ng-bind="gem.price | currency")
-            td
-              button(ng-show="gem.canPurchase" ng-click="store.purchaseGem(gem)" class="btn") Add to cart
-            th
-              button(ng-show="gem.sold > 0" ng-click="store.refundGem(gem)" class="btn") Refund
-            td(ng-bind="gem.sold")
+      div(class="row")
+        h2(ng-bind="'Hello Angular' | case: 'upper'" class="pull-left")
+        a(ng-href="{{store.link}}" target="_blank" class="pull-left")
+
+      div(class="row" ng-repeat="gem in store.gems | orderBy:'-name'" class="product" ng-show="!gem.soldOut")
+        div(class="pull-left")
+          h3(ng-bind="gem.name" ng-class="{red: !gem.canPurchase, blue: gem.canPurchase}")
+          h4(ng-bind="gem.price | currency")
+        div(class="pull-right")
+          h4(ng-bind="'Sold gems: ' + gem.sold")
+          div
+            button(ng-show="gem.canPurchase" ng-click="store.purchaseGem(gem)" class="btn") Add to cart
+          div
+            button(ng-show="gem.sold > 0" ng-click="store.refundGem(gem)" class="btn") Refund
+        img(ng-src="{{store.logo}}")

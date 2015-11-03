@@ -34,6 +34,19 @@ dist
 app/vendor/*
 app/bower_components
 
+#CSS and JS Bundled Files
+public/css/app.less
+public/css/app.css
+public/css/app.min.css
+public/css/vendor.css
+public/css/vendor.min.css
+
+public/js/app.js
+public/js/app.min.js
+public/js/vendor.js
+public/js/vendor.min.js
+
+
 # Generated files
 
 # Local dev configuration
