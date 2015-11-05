@@ -1,18 +1,55 @@
 (function(){
-	angular.module("gemStore", [])
+	angular.module("gemStore", ['ui.validate'])
 })();
 
 (function(){
 	angular.module('gemStore')
 	.controller("GalleryController", ['$scope', function($scope){
-		that = this;
+		var that = this;
 
         that.current = 0;
 
         that.setCurrent = function setCurrent(current) {
             that.current = current || 0;
-            console.log(that.current);
         }
+	}]);
+})();
+(function(){
+	angular.module('gemStore')
+	.controller("ReviewController", [function(){
+		var that = this;
+		
+		that.newReview;
+
+		that.resetNewReview = resetNewReview
+
+		that.availableStars = [
+			{label: 1, value: 1},
+			{label: 2, value: 2},
+			{label: 3, value: 3},
+			{label: 4, value: 4},
+			{label: 5, value: 5}
+		];
+
+		that.addReview = addReview;
+
+		function resetNewReview(){
+			that.newReview = {
+				stars: '',
+				author: '',
+				body: '',
+				createdOn: ''
+			};
+		}
+
+		function addReview(gem){
+			that.newReview.createdOn = Date.now();
+			gem.reviews.push(angular.copy(that.newReview));
+			resetNewReview();
+            return true;
+		}
+
+		resetNewReview();
 	}]);
 })();
 (function(){
@@ -127,11 +164,10 @@
     .controller('TabController', [function(){
         var that = this;
 
-        that.tab = 1;
+        that.tab = 3;
 
         that.setTab = function setTab(tab){
             that.tab = tab;
-            console.log(that.tab)
         }
 
         that.isSet = function isSet(tab){

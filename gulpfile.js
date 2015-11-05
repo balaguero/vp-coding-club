@@ -50,7 +50,9 @@ gulp.task('concatVendorJS',function(){
     //Bootstrap
     "node_modules/bootstrap/dist/js/bootstrap.js",
     //Angular
-    "node_modules/angular/angular.js"
+    "node_modules/angular/angular.js",
+    //ui-validate
+    "node_modules/angular-ui-validate/dist/validate.js"
   ])
   .pipe(concat('js/vendor.js'))
   .pipe(gulp.dest(publicPath));

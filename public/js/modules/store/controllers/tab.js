@@ -4,11 +4,10 @@
     .controller('TabController', [function(){
         var that = this;
 
-        that.tab = 1;
+        that.tab = 3;
 
         that.setTab = function setTab(tab){
             that.tab = tab;
-            console.log(that.tab)
         }
 
         that.isSet = function isSet(tab){
