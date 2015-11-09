@@ -1,3 +1,3 @@
 (function(){
-	angular.module("gemStore", ['ui.validate'])
+	angular.module("gemStore", ['ui.validate','appCompiledTemplates'])
 })();

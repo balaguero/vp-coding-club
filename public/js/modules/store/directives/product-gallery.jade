@@ -1,0 +1,6 @@
+div(class="gallery col-md-12" ng-if="gem.images.length")
+    img(ng-src="{{gem.images[gallery.current]}}" class="center-block img-rounded")
+    br
+    ul(class="list-unstyled")
+        li(ng-repeat="image in gem.images" class="pull-left")
+            img(ng-src="{{image}}" ng-click="gallery.setCurrent($index)" class="img-thumbnail")

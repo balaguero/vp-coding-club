@@ -1,7 +1,7 @@
 extends layout
 
 block body
-    section(ng-controller='StoreController as store' )
+    section(ng-controller='StoreController as store')
         div(class="container")
 
             div(class="row")
@@ -18,49 +18,5 @@ block body
                         button(ng-show="gem.canPurchase" ng-click="store.purchaseGem(gem)" class="btn pull-left") Add to cart
                         button(ng-show="gem.sold > 0" ng-click="store.refundGem(gem)" class="btn pull-left") Refund
 
-                div(class="gallery col-md-12" ng-if="gem.images.length" ng-controller="GalleryController as gallery")
-                    img(ng-src="{{gem.images[gallery.current]}}" class="center-block img-rounded")
-                    br
-                    ul(class="list-unstyled")
-                        li(ng-repeat="image in gem.images" class="pull-left")
-                            img(ng-src="{{image}}" ng-click="gallery.setCurrent($index)" class="img-thumbnail")
-
-                div(class="tab" ng-controller="TabController as tab")
-                    ul(class="nav nav-pills")
-                        li(ng-class="{ active: tab.isSet(1) }")
-                            a(ng-click="tab.setTab(1)") Description
-                        li(ng-class="{ active: tab.isSet(2) }")
-                            a(ng-click="tab.setTab(2)") Specs
-                        li(ng-class="{ active: tab.isSet(3) }")
-                            a(ng-click="tab.setTab(3)") Reviews 
-                    div(ng-show="tab.isSet(1)")
-                        h4 Description
-                        blockquote(ng-bind="gem.description")
-                    div(ng-show="tab.isSet(2)")
-                        h4 Specs
-                        blockquote(ng-bind="gem.shine")
-                    div(ng-show="tab.isSet(3)")
-                        h4 Reviews
-                        ul(class="list-unstyled")
-                            li(ng-repeat="r in gem.reviews")
-                                blockquote
-                                    strong(ng-bind="r.stars + ' Stars'")
-                                    br
-                                    cite By: {{r.author}} - on: {{r.createdOn | date:'medium'}}
-                                    p(ng-bind="r.body")
-
-                        form(ng-controller="ReviewController as review" name="newReviewForm" ng-submit="newReviewForm.$valid && review.addReview(gem) && newReviewForm.$setPristine()" novalidate)
-                            blockquote(ng-show="newReviewForm.$dirty")
-                                strong(ng-bind="review.newReview.stars + ' Stars'")
-                                cite - By: {{review.newReview.author}}
-                                p(ng-bind="review.newReview.body")
-
-                            .form-group
-                                select(class="form-control" ng-options="star.value as star.label for star in review.availableStars" ng-model="review.newReview.stars" required ng-class="{'has-error': newReviewForm.stars.$dirty && newReviewForm.stars.$invalid}" name="stars")
-                                    option(value="") Rate this gem
-                            .form-group
-                                textarea(placeholder="Your Comment" class="form-control" required ng-model="review.newReview.body" ng-class="{'has-error': newReviewForm.body.$dirty && newReviewForm.body.$invalid}" name="body")
-                            .form-group
-                                input(placeholder="Your Email" class="form-control" type="email" required ng-model="review.newReview.author" ng-class="{'has-error': newReviewForm.author.$dirty && newReviewForm.author.$invalid}" name="author")
-                            .form-group
-                                input(type="submit" value="Submit Review" ng-class="newReviewForm.$invalid ? 'btn-danger' : 'btn-primary'" class="btn")
+                product-gallery(gem="gem")
+                product-tab(gem="gem")

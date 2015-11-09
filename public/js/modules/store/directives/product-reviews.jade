@@ -1,0 +1,24 @@
+h4 Reviews
+    ul(class="list-unstyled")
+        li(ng-repeat="r in gem.reviews")
+            blockquote
+                strong(ng-bind="r.stars + ' Stars'")
+                br
+                cite By: {{r.author}} - on: {{r.createdOn | date:'medium'}}
+                p(ng-bind="r.body")
+
+    form(ng-controller="ReviewController as review" name="newReviewForm" ng-submit="newReviewForm.$valid && review.addReview(gem) && newReviewForm.$setPristine()" novalidate)
+        blockquote(ng-show="newReviewForm.$dirty")
+            strong(ng-bind="review.newReview.stars + ' Stars'")
+            cite - By: {{review.newReview.author}}
+            p(ng-bind="review.newReview.body")
+
+        .form-group
+            select(class="form-control" ng-options="star.value as star.label for star in review.availableStars" ng-model="review.newReview.stars" required ng-class="{'has-error': newReviewForm.stars.$dirty && newReviewForm.stars.$invalid}" name="stars")
+                option(value="") Rate this gem
+        .form-group
+            textarea(placeholder="Your Comment" class="form-control" required ng-model="review.newReview.body" ng-class="{'has-error': newReviewForm.body.$dirty && newReviewForm.body.$invalid}" name="body")
+        .form-group
+            input(placeholder="Your Email" class="form-control" type="email" required ng-model="review.newReview.author" ng-class="{'has-error': newReviewForm.author.$dirty && newReviewForm.author.$invalid}" name="author" ng-model-options="{updateOn: 'blur'}")
+        .form-group
+            input(type="submit" value="Submit Review" ng-class="newReviewForm.$invalid ? 'btn-danger' : 'btn-primary'" class="btn")

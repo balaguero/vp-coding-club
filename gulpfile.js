@@ -11,15 +11,21 @@ var less = require('gulp-less');
 var path = require('path');
 var minifyCSS = require('gulp-minify-css');
 var rename = require('gulp-rename');
+var jade = require('gulp-jade');
+var ngHtml2Js = require("gulp-ng-html2js");
+var minifyHtml = require("gulp-minify-html");
  
 
 //APP FILES TASKS
-gulp.task('concatAppJS',function(){
+gulp.task('concatAppJS',['templates', 'jade'],function(){
     //Concat JS files
   return gulp.src([
     /*************************************/
     //Angular Modules Declaration
     modulesPath + 'store/store.js',
+
+    //Compiled Templates
+    publicPath + 'js/compiled-templates/ng-templates.js',
 
     /*************************************/
     //Angular Modules Files
@@ -29,9 +35,9 @@ gulp.task('concatAppJS',function(){
   .pipe(gulp.dest(publicPath));
 });
 
-gulp.task('minifyAppJS', ['concatAppJS'], function(){
+gulp.task('minifyAppJS', ['concatAppJS', 'templates', 'jade'], function(){
   gulp.src(publicPath + 'js/app.js')
-  .pipe(uglify())
+  //.pipe(uglify())
   .pipe(rename({
       extname: '.min.js'
   }))
@@ -125,6 +131,27 @@ gulp.task('minifyCSS', ['less', 'concatLESS'], function(){
     .pipe(gulp.dest(publicPath + 'css'));
 });
 
+// COMPILE JADE TEMPLATES
+gulp.task('jade', function() {
+  gulp.src(modulesPath + '**/directives/*.jade')
+    .pipe(jade())
+    .pipe(gulp.dest(publicPath + 'js/compiled-templates'))
+});
+
+gulp.task('templates',['jade'], function(){
+  gulp.src(publicPath + 'js/compiled-templates/**/*.html')
+    .pipe(minifyHtml({
+        empty: true,
+        spare: true,
+        quotes: true
+    }))
+    .pipe(ngHtml2Js({
+        moduleName: "appCompiledTemplates"
+    }))
+    .pipe(concat("ng-templates.js"))
+    .pipe(gulp.dest(publicPath + 'js/compiled-templates'));
+});
+
 
 
 //WATCH TASKS
@@ -133,6 +160,8 @@ gulp.task('watch', function() {
   gulp.watch( modulesPath + '**/*.js', ['minifyAppJS']);
   //Watch Less Files
   gulp.watch( publicPath + 'css/style.less', ['minifyCSS']);
+  //Watch Directives Jade templates files
+  gulp.watch( modulesPath + '**/directives/**/*.jade', ['minifyAppJS']);
 });
 
 gulp.task('default', [
