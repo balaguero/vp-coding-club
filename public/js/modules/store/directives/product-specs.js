@@ -5,7 +5,7 @@
 			return {
 				restrict: 'A',
 				scope: {
-					'gem' : '=gem'
+					'gem' : '='
 				},
 				template: $templateCache.get('store/directives/product-specs.html')
 			}

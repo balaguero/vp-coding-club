@@ -1,6 +1,6 @@
 (function(){
     angular.module('gemStore')
-    .controller("StoreController", ['$scope', 'gemsService', 'caseFilter', function($scope, gemsService, caseFilter){
+    .controller("StoreController", ['gemsService', 'caseFilter', function(gemsService, caseFilter){
         var that = this;
 
         that.logo = "img/angularjs-logo.png";

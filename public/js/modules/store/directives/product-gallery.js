@@ -5,7 +5,7 @@
 			return {
 				restrict: 'E',
 				scope: {
-					'gem' : '=gem'
+					'gem' : '='
 				},
 				template: $templateCache.get('store/directives/product-gallery.html'),
 				controller: GalleryController,

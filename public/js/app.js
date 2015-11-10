@@ -103,7 +103,7 @@ module.run(['$templateCache', function($templateCache) {
 			return {
 				restrict: 'E',
 				scope: {
-					'gem' : '=gem'
+					'gem' : '='
 				},
 				template: $templateCache.get('store/directives/product-description.html')
 			}
@@ -117,7 +117,7 @@ module.run(['$templateCache', function($templateCache) {
 			return {
 				restrict: 'E',
 				scope: {
-					'gem' : '=gem'
+					'gem' : '='
 				},
 				template: $templateCache.get('store/directives/product-gallery.html'),
 				controller: GalleryController,
@@ -144,7 +144,7 @@ module.run(['$templateCache', function($templateCache) {
 			return {
 				restrict: 'E',
 				scope: {
-					'gem' : '=gem'
+					'gem' : '='
 				},
 				template: $templateCache.get('store/directives/product-reviews.html')
 			}
@@ -158,7 +158,7 @@ module.run(['$templateCache', function($templateCache) {
 			return {
 				restrict: 'A',
 				scope: {
-					'gem' : '=gem'
+					'gem' : '='
 				},
 				template: $templateCache.get('store/directives/product-specs.html')
 			}
@@ -239,7 +239,7 @@ module.run(['$templateCache', function($templateCache) {
 })();
 (function(){
     angular.module('gemStore')
-    .controller("StoreController", ['$scope', 'gemsService', 'caseFilter', function($scope, gemsService, caseFilter){
+    .controller("StoreController", ['gemsService', 'caseFilter', function(gemsService, caseFilter){
         var that = this;
 
         that.logo = "img/angularjs-logo.png";
