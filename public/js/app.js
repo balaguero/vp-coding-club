@@ -9,18 +9,6 @@ try {
   module = angular.module('appCompiledTemplates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('ex/directives/as.html',
-    '<h2>pepe</h2>');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('appCompiledTemplates');
-} catch (e) {
-  module = angular.module('appCompiledTemplates', []);
-}
-module.run(['$templateCache', function($templateCache) {
   $templateCache.put('store/directives/product-description.html',
     '<h4>Description</h4><blockquote ng-bind="gem.description"></blockquote>');
 }]);
@@ -150,7 +138,7 @@ module.run(['$templateCache', function($templateCache) {
             return {
                 restrict: 'E',
                 scope: {
-                    'gem' : '=gem'
+                    'gem' : '='
                 },
                 template: $templateCache.get('store/directives/product-tab.html'),
                 controller: productTabController,
@@ -163,11 +151,15 @@ module.run(['$templateCache', function($templateCache) {
 
         that.tab = 3;
 
-        that.setTab = function setTab(tab){
+        that.setTab = setTab;
+
+        that.isSet = isSet;
+
+        function setTab(tab){
             that.tab = tab;
         }
 
-        that.isSet = function isSet(tab){
+        function isSet(tab){
             return that.tab === tab;
         }
     }

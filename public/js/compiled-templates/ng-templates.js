@@ -5,18 +5,6 @@ try {
   module = angular.module('appCompiledTemplates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('ex/directives/as.html',
-    '<h2>pepe</h2>');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('appCompiledTemplates');
-} catch (e) {
-  module = angular.module('appCompiledTemplates', []);
-}
-module.run(['$templateCache', function($templateCache) {
   $templateCache.put('store/directives/product-description.html',
     '<h4>Description</h4><blockquote ng-bind="gem.description"></blockquote>');
 }]);
