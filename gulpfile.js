@@ -21,8 +21,8 @@ gulp.task('concatAppJS',['templates', 'jade'],function(){
     //Concat JS files
   return gulp.src([
     /*************************************/
-    //Angular Modules Declaration
-    modulesPath + 'store/store.js',
+    //Angular Modules and routes Declaration
+    modulesPath + '**/config/*.js',
 
     //Compiled Templates
     publicPath + 'js/compiled-templates/ng-templates.js',
@@ -58,7 +58,9 @@ gulp.task('concatVendorJS',function(){
     //Angular
     "node_modules/angular/angular.js",
     //ui-validate
-    "node_modules/angular-ui-validate/dist/validate.js"
+    "node_modules/angular-ui-validate/dist/validate.js",
+    //Vendor Files
+    "public/js/vendor/**/*.js"
   ])
   .pipe(concat('js/vendor.js'))
   .pipe(gulp.dest(publicPath));
@@ -164,6 +166,7 @@ gulp.task('watch', function() {
   gulp.watch( modulesPath + '**/directives/**/*.jade', ['minifyAppJS']);
 });
 
+//RUN TASKS ON LAUNCH GULP
 gulp.task('default', [
     'minifyVendorJS',
     'minifyAppJS',

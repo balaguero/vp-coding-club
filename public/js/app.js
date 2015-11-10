@@ -1,5 +1,39 @@
+/*(function(){
+  angular
+    .module('gemStore')
+    .config(function($stateProvider, $urlRouterProvider) {
+    // For any unmatched url, redirect to /
+    $urlRouterProvider.otherwise("/");
+    //
+    // Now set up the states
+    $stateProvider
+      .state('index', {
+        url: "/index",
+        templateUrl: "partials/state1.html"
+      })
+      .state('state1.list', {
+        url: "/list",
+        templateUrl: "partials/state1.list.html",
+        controller: function($scope) {
+          $scope.items = ["A", "List", "Of", "Items"];
+        }
+      })
+      .state('state2', {
+        url: "/state2",
+        templateUrl: "partials/state2.html"
+      })
+      .state('state2.list', {
+        url: "/list",
+        templateUrl: "partials/state2.list.html",
+        controller: function($scope) {
+          $scope.things = ["A", "Set", "Of", "Things"];
+        }
+      });
+  });
+})()
+*/
 (function(){
-	angular.module("gemStore", ['ui.validate','appCompiledTemplates'])
+	angular.module("gemStore", ['ui.router', 'ui.validate', 'appCompiledTemplates'])
 })();
 
 (function(module) {
@@ -205,7 +239,7 @@ module.run(['$templateCache', function($templateCache) {
 })();
 (function(){
     angular.module('gemStore')
-    .controller("StoreController", ['$scope', 'caseFilter', function($scope, caseFilter){
+    .controller("StoreController", ['$scope', 'gemsService', 'caseFilter', function($scope, gemsService, caseFilter){
         var that = this;
 
         that.logo = "img/angularjs-logo.png";
@@ -214,95 +248,6 @@ module.run(['$templateCache', function($templateCache) {
         that.refundGem = refundGem;
         that.purchaseGem = purchaseGem;
 
-
-        that.gems = [{
-            name: caseFilter('Azurite', 'upper'),
-            description: "Some gems have hidden qualities beyond their luster, beyond their shine... Azurite is one of those gems.",
-            shine: 8,
-            price: 110.50,
-            rarity: 7,
-            color: '#CCC',
-            faces: 14,
-            canPurchase: true,
-            sold: 0,
-            soldOut: false,
-            images: [
-               "img/gem-02.gif",
-               "img/gem-05.gif",
-               "img/gem-09.gif"
-            ],
-            reviews: [{
-                stars: 5,
-                body: "I love this gem!",
-                author: "joe@example.org",
-                createdOn: 1397490980837
-            }, {
-                stars: 1,
-                body: "This gem sucks.",
-                author: "tim@example.org",
-                createdOn: 1397490980837
-            }]
-        }, {
-            name: 'Bloodstone',
-            description: "Origin of the Bloodstone is unknown, hence its low value. It has a very high shine and 12 sides, however.",
-            shine: 9,
-            price: 22.90,
-            rarity: 6,
-            color: '#EEE',
-            faces: 12,
-            canPurchase: true,
-            sold: 0,
-            soldOut: false,
-            images: [
-              "img/gem-01.gif",
-              "img/gem-03.gif",
-              "img/gem-04.gif"
-            ],
-            reviews: [{
-                stars: 3,
-                body: "I think this gem was just OK, could honestly use more shine, IMO.",
-                author: "JimmyDean@example.org",
-                createdOn: 1397490980837
-            }, {
-                stars: 4,
-                body: "Any gem with 12 faces is for me!",
-                author: "gemsRock@example.org",
-                createdOn: 1397490980837
-            }]
-        }, {
-            name: 'Zircon',
-            description: "Zircon is our most coveted and sought after gem. You will pay much to be the proud owner of this gorgeous and high shine gem.",
-            shine: 70,
-            price: 1100,
-            rarity: 2,
-            color: '#000',
-            faces: 6,
-            canPurchase: true,
-            sold: 0,
-            soldOut: false,
-            images: [
-              "img/gem-06.gif",
-              "img/gem-07.gif",
-              "img/gem-08.gif"
-            ],
-            reviews: [{
-                stars: 1,
-                body: "This gem is WAY too expensive for its rarity value.",
-                author: "turtleguyy@example.org",
-                createdOn: 1397490980837
-            }, {
-                stars: 1,
-                body: "BBW: High Shine != High Quality.",
-                author: "LouisW407@example.org",
-                createdOn: 1397490980837
-            }, {
-                stars: 1,
-                body: "Don't waste your rubles!",
-                author: "nat@example.org",
-                createdOn: 1397490980837
-            }]
-        }];
-
         function purchaseGem (gem){
             gem.sold ++;
         };
@@ -310,6 +255,10 @@ module.run(['$templateCache', function($templateCache) {
         function refundGem(gem){
             gem.sold --;
         };
+
+        gemsService.getGems().then(function(response){
+            that.gems = response.data;
+        });
     }]);
 })();
 (function() {
@@ -345,3 +294,18 @@ module.run(['$templateCache', function($templateCache) {
 	});
 
 })();
+(function(){
+	angular
+		.module('gemStore')
+		.factory('gemsService',['$http', function($http){
+			var that = this;
+
+			that.getGems = getGems;
+
+			function getGems(){
+				return $http.get('/gems/get');
+			}
+
+			return this;
+		}])
+})()
