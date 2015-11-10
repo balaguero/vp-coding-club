@@ -6,6 +6,9 @@
         that.logo = "img/angularjs-logo.png";
         that.link = "https://angularjs.org/";
 
+        that.refundGem = refundGem;
+        that.purchaseGem = purchaseGem;
+
 
         that.gems = [{
             name: caseFilter('Azurite', 'upper'),
@@ -95,11 +98,11 @@
             }]
         }];
 
-        that.purchaseGem = function(gem){
+        function purchaseGem (gem){
             gem.sold ++;
         };
 
-        that.refundGem = function(gem){
+        function refundGem(gem){
             gem.sold --;
         };
     }]);

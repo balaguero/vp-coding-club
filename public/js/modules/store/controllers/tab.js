@@ -6,14 +6,17 @@
 
         that.tab = 3;
 
-        that.setTab = function setTab(tab){
+        that.setTab = setTab;
+
+        that.isSet = isSet;
+
+        function setTab(tab){
             that.tab = tab;
         }
 
-        that.isSet = function isSet(tab){
+        function isSet(tab){
             return that.tab === tab;
         }
 
     }]);
-
 })();

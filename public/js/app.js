@@ -180,7 +180,7 @@ module.run(['$templateCache', function($templateCache) {
 		
 		that.newReview;
 
-		that.resetNewReview = resetNewReview
+		that.resetNewReview = resetNewReview;
 
 		that.availableStars = [
 			{label: '1 Star', value: 1},
@@ -218,6 +218,9 @@ module.run(['$templateCache', function($templateCache) {
 
         that.logo = "img/angularjs-logo.png";
         that.link = "https://angularjs.org/";
+
+        that.refundGem = refundGem;
+        that.purchaseGem = purchaseGem;
 
 
         that.gems = [{
@@ -308,11 +311,11 @@ module.run(['$templateCache', function($templateCache) {
             }]
         }];
 
-        that.purchaseGem = function(gem){
+        function purchaseGem (gem){
             gem.sold ++;
         };
 
-        that.refundGem = function(gem){
+        function refundGem(gem){
             gem.sold --;
         };
     }]);
@@ -325,16 +328,19 @@ module.run(['$templateCache', function($templateCache) {
 
         that.tab = 3;
 
-        that.setTab = function setTab(tab){
+        that.setTab = setTab;
+
+        that.isSet = isSet;
+
+        function setTab(tab){
             that.tab = tab;
         }
 
-        that.isSet = function isSet(tab){
+        function isSet(tab){
             return that.tab === tab;
         }
 
     }]);
-
 })();
 (function(){
 

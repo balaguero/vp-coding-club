@@ -5,7 +5,7 @@
 		
 		that.newReview;
 
-		that.resetNewReview = resetNewReview
+		that.resetNewReview = resetNewReview;
 
 		that.availableStars = [
 			{label: '1 Star', value: 1},
