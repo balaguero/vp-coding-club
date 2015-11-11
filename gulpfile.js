@@ -14,6 +14,31 @@ var rename = require('gulp-rename');
 var jade = require('gulp-jade');
 var ngHtml2Js = require("gulp-ng-html2js");
 var minifyHtml = require("gulp-minify-html");
+
+// COMPILE JADE TEMPLATES
+gulp.task('jade', function() {
+  gulp.src([
+      modulesPath + '**/directives/**/*.jade',
+      modulesPath + '**/views/**/*.jade'
+    ])
+    .pipe(jade())
+    .pipe(gulp.dest(publicPath + 'js/compiled-templates'))
+});
+
+gulp.task('templates',['jade'], function(){
+  gulp.src(publicPath + 'js/compiled-templates/**/*.html')
+    .pipe(minifyHtml({
+        empty: true,
+        spare: true,
+        quotes: true
+    }))
+    .pipe(ngHtml2Js({
+        moduleName: "appCompiledTemplates"
+    }))
+    .pipe(concat("ng-templates.js"))
+    .pipe(gulp.dest(publicPath + 'js/compiled-templates'));
+});
+
  
 
 //APP FILES TASKS
@@ -21,11 +46,12 @@ gulp.task('concatAppJS',['templates', 'jade'],function(){
     //Concat JS files
   return gulp.src([
     /*************************************/
-    //Angular Modules and routes Declaration
-    modulesPath + '**/config/*.js',
-
     //Compiled Templates
     publicPath + 'js/compiled-templates/ng-templates.js',
+
+    //Angular Modules and routes Declaration
+    modulesPath + '*/*.js',
+    modulesPath + '**/config/*.js',
 
     /*************************************/
     //Angular Modules Files
@@ -105,11 +131,11 @@ gulp.task('concatLESS', function(){
   return gulp.src([
     /*************************************/
     //App LESS
-    publicPath + 'css/style.less'
+    publicPath + 'css/style.less',
 
     /*************************************/
     //Modules LESS
-    //modulesPath + '**/*.less'
+    modulesPath + '**/*.less'
     ])
   .pipe(concat('css/app.less'))
   .pipe(gulp.dest(publicPath));
@@ -133,28 +159,6 @@ gulp.task('minifyCSS', ['less', 'concatLESS'], function(){
     .pipe(gulp.dest(publicPath + 'css'));
 });
 
-// COMPILE JADE TEMPLATES
-gulp.task('jade', function() {
-  gulp.src(modulesPath + '**/directives/*.jade')
-    .pipe(jade())
-    .pipe(gulp.dest(publicPath + 'js/compiled-templates'))
-});
-
-gulp.task('templates',['jade'], function(){
-  gulp.src(publicPath + 'js/compiled-templates/**/*.html')
-    .pipe(minifyHtml({
-        empty: true,
-        spare: true,
-        quotes: true
-    }))
-    .pipe(ngHtml2Js({
-        moduleName: "appCompiledTemplates"
-    }))
-    .pipe(concat("ng-templates.js"))
-    .pipe(gulp.dest(publicPath + 'js/compiled-templates'));
-});
-
-
 
 //WATCH TASKS
 gulp.task('watch', function() {
@@ -164,6 +168,7 @@ gulp.task('watch', function() {
   gulp.watch( publicPath + 'css/style.less', ['minifyCSS']);
   //Watch Directives Jade templates files
   gulp.watch( modulesPath + '**/directives/**/*.jade', ['minifyAppJS']);
+  gulp.watch( modulesPath + '**/views/**/*.jade', ['minifyAppJS']);
 });
 
 //RUN TASKS ON LAUNCH GULP

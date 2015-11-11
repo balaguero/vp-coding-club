@@ -7,7 +7,7 @@
 				scope: {
 					'gem' : '='
 				},
-				template: $templateCache.get('store/directives/product-gallery.html'),
+				template: $templateCache.get('store/directives/product-gallery/product-gallery.html'),
 				controller: GalleryController,
 				controllerAs: 'gallery'
 			}

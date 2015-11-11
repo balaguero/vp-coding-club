@@ -1,6 +1,6 @@
 (function(){
     angular.module('gemStore')
-    .controller("StoreController", ['gemsService', 'caseFilter', function(gemsService, caseFilter){
+    .controller("StoreController", ['gemsFactory', 'caseFilter', function(gemsFactory, caseFilter){
         var that = this;
 
         that.logo = "img/angularjs-logo.png";
@@ -17,8 +17,8 @@
             gem.sold --;
         };
 
-        gemsService.getGems().then(function(response){
-            that.gems = response.data;
-        });
+        gemsFactory.getGems().then(function(gems){
+            that.gems = gems;
+        })
     }]);
 })();

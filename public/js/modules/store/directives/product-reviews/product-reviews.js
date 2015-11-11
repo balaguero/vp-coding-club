@@ -7,7 +7,7 @@
 				scope: {
 					'gem' : '='
 				},
-				template: $templateCache.get('store/directives/product-reviews.html')
+				template: $templateCache.get('store/directives/product-reviews/product-reviews.html')
 			}
 		}]);
 })();

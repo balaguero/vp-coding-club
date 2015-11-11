@@ -1,7 +1,6 @@
 html(ng-app="gemStore")
   head
     meta(charset='utf8')
-    base(href='/')
     title Angular Express Seed App
     if env == "development"
         link(rel='stylesheet', href='/css/vendor.css')
@@ -9,7 +8,9 @@ html(ng-app="gemStore")
     else
         link(rel='stylesheet', href='/css/vendor.min.css')
         link(rel='stylesheet', href='/css/app.min.css')
-  body
+    style
+        [ng\:cloak], [ng-cloak], .ng-cloak { display: none; }
+  body(ng-cloak="")
     block body
     if env == "development"
         script(src='js/vendor.js')

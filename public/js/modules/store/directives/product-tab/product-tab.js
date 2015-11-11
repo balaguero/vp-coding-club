@@ -7,7 +7,7 @@
                 scope: {
                     'gem' : '='
                 },
-                template: $templateCache.get('store/directives/product-tab.html'),
+                template: $templateCache.get('store/directives/product-tab/product-tab.html'),
                 controller: productTabController,
                 controllerAs: 'tab'
             }
@@ -16,7 +16,7 @@
     function productTabController(){
         var that = this;
 
-        that.tab = 3;
+        that.tab = 1;
 
         that.setTab = setTab;
 

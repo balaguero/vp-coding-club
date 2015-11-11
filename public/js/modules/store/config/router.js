@@ -1,34 +1,19 @@
-/*(function(){
+(function(){
   angular
     .module('gemStore')
-    .config(function($stateProvider, $urlRouterProvider) {
-    // For any unmatched url, redirect to /
-    $urlRouterProvider.otherwise("/");
-    //
-    // Now set up the states
-    $stateProvider
-      .state('index', {
-        url: "/index",
-        templateUrl: "partials/state1.html"
-      })
-      .state('state1.list', {
-        url: "/list",
-        templateUrl: "partials/state1.list.html",
-        controller: function($scope) {
-          $scope.items = ["A", "List", "Of", "Items"];
-        }
-      })
-      .state('state2', {
-        url: "/state2",
-        templateUrl: "partials/state2.html"
-      })
-      .state('state2.list', {
-        url: "/list",
-        templateUrl: "partials/state2.list.html",
-        controller: function($scope) {
-          $scope.things = ["A", "Set", "Of", "Things"];
-        }
-      });
-  });
-})()
-*/
+    .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+      // For any unmatched url, redirect to /
+      $urlRouterProvider.otherwise("/");
+      //
+      // Now set up the states
+      $stateProvider
+        .state('index', {
+          url: "/",
+          templateProvider: function($templateCache){  
+          // simplified, expecting that the cache is filled
+          // there should be some checking... and async $http loading if not found
+            return $templateCache.get('store/views/index.html'); 
+          }
+        });
+    }]);
+})();
